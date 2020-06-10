@@ -201,7 +201,22 @@ const ARRAY_DE_ALUMNOS = [
   },
 ];
 
+//OPNCION 1
 for (const obj of ARRAY_DE_ALUMNOS) {
-  let textoRecursa = obj.recursa ? 'Recura materias' : 'No recursa materias';
+  if (obj.recursa) {
+    console.log(
+      `El alumno: ${obj.nombre} ${obj.apellido} Recursa - llamar al tel: ${obj.tel.casa} \n`
+    );
+  } else {
+    console.log(`El alumno: ${obj.nombre} ${obj.apellido} No recursa`);
+  }
+}
+
+//OPNCION 2
+for (const obj of ARRAY_DE_ALUMNOS) {
+  let textoRecursa = obj.recursa
+    ? `Recusra materias - Llamar ${obj.tel.casa}`
+    : 'No recursa materias';
+
   console.log(`El alumno: ${obj.nombre} ${obj.apellido} ${textoRecursa} \n`);
 }
