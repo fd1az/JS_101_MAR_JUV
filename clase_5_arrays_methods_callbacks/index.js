@@ -187,7 +187,7 @@ console.log(book2);
 
 console.log('\n');
 console.log('-----------FILTER-------------');
-// FILTER - devuelve un array con el/los elementos que cumplan con la logica que pasamos en el callback
+// FILTER - devuelve un nuevo array con el/los elementos que cumplan con la logica que pasamos en el callback
 
 let books3 = [
   {
@@ -212,7 +212,7 @@ let books3 = [
     id: 123456,
     title: 'El Señor de los Anillos',
     author: 'J.R.R Tolkien',
-    genres: ['ciencia ficción', 'aventura'],
+    genres: ['aventura'],
   },
   {
     id: 12345678,
@@ -240,3 +240,103 @@ let books3 = [
     genres: ['ciencia', 'física', 'divulgación científica'],
   },
 ];
+
+//SUPON que este valor lo obtenemos de un input del usuario
+let autor = 'J.R.R Tolkien';
+// let genero = 'ciencia';
+
+let librosFiltrados = books3.filter((book) => {
+  let cond1 = book.author === autor; // TRUE - lo mete en el nuevo array
+  let cond2 = book.genres.includes('ciencia ficción'); // TRUE si existe / FALSE sino hay ningun valor que coincida
+  return cond1 && cond2;
+});
+
+const getBooks = (propiedad, valor, arr) => {
+  if (propiedad !== 'genres') {
+    return arr.filter((book) => {
+      return book[propiedad] === valor;
+    });
+  }
+  return arr.filter((book) => {
+    return book[propiedad].includes(valor);
+  });
+};
+
+let searchBooks = getBooks('genres', 'ciencia ficción', books3);
+
+console.log('[librosFiltrados] ', librosFiltrados);
+console.log('\n');
+
+if (searchBooks.length === 0) {
+  console.log('[searchBooks] ', 'No hay resultados para tu busqueda');
+} else {
+  console.log('[searchBooks] ', searchBooks);
+}
+
+// SOME AND EVERY
+//Every devuelve true si todos cumplen la condicion del callback
+//Some devuelve true si al menos 1 cumplen la condicion del callback
+
+console.log('\n');
+console.log('-----------SOME AND EVERY -------------');
+
+let arrayNums = [1, 3, 5, , 9, 8];
+console.log(arrayNums.every((n) => n % 2 === 1));
+
+console.log(arrayNums.some((n) => n % 2 === 0));
+
+console.log('\n');
+console.log('-----------SORT -------------');
+//SORT - Convierte en STRING
+
+let arrayNums2 = [11.99, 77.88, 8, 1, 99.99, 9];
+
+console.log(arrayNums2.sort());
+console.log(arrayNums2.sort((a, b) => a - b)); // ORDEN ASCENDENTE
+console.log(arrayNums2.sort((a, b) => b - a)); // ORDEN DESCENDENTE
+
+// a - b => -n => ordena a antes que b
+// a - b => +n => ordenba b antes que a
+
+//REDUCE - toma los valores un array y lo reduce a un solo valor;
+
+console.log('\n');
+console.log('----------- REDUCE -------------');
+
+let arrayNum3 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+let resultado = arrayNum3.reduce((acumulador, valorActual) => {
+  return acumulador + valorActual;
+});
+console.log('[Reduce arrayNum3]: ', resultado);
+console.log('\n');
+let numObj2 = [
+  { value: 10 },
+  { value: 10 },
+  { value: 10 },
+  { value: 10 },
+  { value: 10 },
+];
+let resultado2 = numObj2.reduce((acumulador, valorActual) => {
+  return acumulador + valorActual.value;
+}, 0);
+
+let resultado3 = numObj2.reduce((acumulador, valorActual) => {
+  return { value: acumulador.value + valorActual.value };
+});
+
+let resultado4 = numObj2.reduce(
+  (acumulador, valorActual) => {
+    acumulador['value'] = acumulador.value + valorActual.value;
+    return acumulador;
+  },
+  { value: 0 }
+);
+
+console.log('[Reduce numObj]: ', resultado2);
+console.log('\n');
+
+console.log('[Reduce numObj v2]: ', resultado3);
+console.log('\n');
+
+console.log('[Reduce numObj v3]: ', resultado4);
+console.log('\n');
