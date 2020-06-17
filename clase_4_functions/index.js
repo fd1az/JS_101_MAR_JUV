@@ -97,7 +97,7 @@ let arr = retornaMUchos();
 console.log(arr);
 
 //EJEMPLO DE FN CON VARIOS PARAMETROS Y QUE VUELVE ARRAY DE TODOS ESOS PARAMETROS
-
+//Usando rest parametres
 function cuadrados(...args) {
   let miArray = [];
   for (let index = 0; index < args.length; index++) {

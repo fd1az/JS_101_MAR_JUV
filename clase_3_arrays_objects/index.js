@@ -101,6 +101,7 @@ otroColor = 'Azul'; // Modifique el VALOR de otroColor, Pero Color no fue afecta
 
 console.log(color, otroColor);
 
+//PASS BY VALUE / PASS BY REFERENCE
 let arrayNum = [1, 2, 3, 4, 5]; // VARIABLE tipo Referencial - GUARDA EL VALOR??? NO, GUARDA LA DIRECCION EN MEMOMORIA (0x131351321)
 let miOtroArrayNum = arrayNum; // <--- NO guarda [1,2,3,4,5] - GUARDA  (0x131351321) - ESto es una referencia a la direccion en memoria de Arraynum - Como se dice en otros lenguajes un puntero. (pointers);
 const miOtroArrayNoPuntero = [...arrayNum];
