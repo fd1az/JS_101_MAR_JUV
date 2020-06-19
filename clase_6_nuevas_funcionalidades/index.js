@@ -140,3 +140,91 @@ const imprimirSaludos2 = (...args) => {
 };
 
 imprimirSaludos2('Hola', 'Hello');
+
+//TAREAAAAAA
+
+//1 - mayus("hola") -> HOLA
+const mayus = (str) => {
+  //CODIGO
+  //   let arr = [...str];
+  //   let mayus = arr.map((letra) => letra.toUpperCase()).join('');
+  //   return mayus;
+  return [...str].map((letra) => letra.toUpperCase()).join('');
+};
+
+console.log(mayus('hola'));
+
+//PARA EL JUEVES
+// contarLetras('abbcccddddeeeee') => {a:1, b:2,c:3,d:4,e:5}
+// Reduce!
+
+//DESTRUCTURANTE array == Destructuring arrays
+let marvel = [
+  'Iron Man',
+  'Capitan America',
+  'Thor',
+  'Hulk',
+  'Black Widow',
+  'Falcon',
+];
+
+let ironMan = marvel[0];
+
+let [elMartir, elJefe, , elVerdeEnorme] = marvel;
+
+console.log(ironMan, elMartir, elJefe, elVerdeEnorme);
+
+const book = {
+  autor: 'J.R.R Talkien',
+  titulo: 'El Señor De Los Anillos',
+  tapa: 'dura',
+  medidad: {
+    alto: 50,
+    ancho: 50,
+  },
+};
+
+const { titulo, tapa: tapita } = book;
+
+console.log(titulo, tapita);
+
+//Short hand properties
+
+const estadisticas = (arr) => {
+  const max = Math.max(...arr);
+  const min = Math.min(...arr); //
+  const sum = arr.reduce((acc, cv) => acc + cv);
+  const promedio = sum / arr.length;
+  return {
+    max,
+    min,
+    sum,
+    promedio: parseFloat(promedio.toFixed(2)),
+  };
+};
+
+const datos = [1, 5, 32, 7, 8, 55, 66];
+const resultados = estadisticas(datos);
+console.log(resultados);
+
+//Computed propeties
+const role = 'lkajsHFDLKajshfdlkajSHD';
+const empleado = 'Facu';
+
+// const equipo = {
+//   role: empleado,
+// };
+
+// const equipo = {
+//     "role": empleado,
+//   };
+
+// const equipo = {};
+// //equpo["admin"] = "Facu"
+//  equipo[role]= empleado;
+
+const equipo = {
+  [role]: empleado,
+};
+
+console.log(equipo);
