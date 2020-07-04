@@ -1,0 +1,20 @@
+h1 {
+  color: red;
+  font-size: 45px;
+}
+
+#todos {
+  max-width: 200px;
+  border: 1px solid purple;
+}
+
+.todo {
+  color: rebeccapurple;
+  font-size: 25px;
+}
+
+.realizado {
+  color: gray;
+  text-decoration: line-through;
+  opacity: 50%;
+}

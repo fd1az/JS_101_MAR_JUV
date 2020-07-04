@@ -159,6 +159,7 @@ const alumno = {
   recursa: false,
 };
 
+//COMBINACION DE AMBOS
 const ARRAY_DE_ALUMNOS = [
   {
     nombre: 'Lorenzo',
