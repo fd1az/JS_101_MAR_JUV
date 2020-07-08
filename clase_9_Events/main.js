@@ -12,7 +12,7 @@ app.innerHTML = `
         </div>
     </div>
 
-    <!-- Despues -->
+    <!-- Prevent Default -->
     <form >
         <label>
             Ingresar
@@ -22,6 +22,17 @@ app.innerHTML = `
             <input type="checkbox">Terminos y condiciones
         </label>
     </form>
+
+    <!-- Event Delegation -->
+    <div class="list-container">
+        <button type="button" class="btn" id="addItem">Agregar</button>
+        <ul id="list">
+            <li>Item1</li>
+            <li>Item2</li>
+            <li>Item3</li>
+            <li>Item4</li>
+        </ul>
+    </div>
 `;
 
 //Agregamos un evento al boton
@@ -124,3 +135,31 @@ const handlerSubmit = (e) => {
 };
 
 form.addEventListener('submit', handlerSubmit);
+
+//!Event delegation
+const list = document.querySelector('#list');
+const items = [...list.querySelectorAll('li')];
+const addButton = document.querySelector('#addItem');
+
+const handlerClickList = (e) => {
+  //Podriamos checkear que el evento se dispare desde el elemento que yo quiera
+
+  if (e.target.nodeName.toLowerCase() !== 'li') {
+    return;
+  }
+  console.log(e.target.innerText);
+};
+
+const handlerAddItem = () => {
+  const items = [...list.querySelectorAll('li')];
+  const li = document.createElement('li');
+  li.innerText = `Item${items.length + 1}`;
+  list.appendChild(li);
+};
+
+// items.forEach((item) => {
+//   item.addEventListener('click', handlerAddClick);
+// });
+
+list.addEventListener('click', handlerClickList);
+addButton.addEventListener('click', handlerAddItem);
