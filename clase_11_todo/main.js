@@ -17,7 +17,6 @@ app.innerHTML = `
 
         </ul>
     </div>
-
 `;
 
 //?Selectores
@@ -35,8 +34,8 @@ const renderTodos = (todos) => {
   let listString = "";
   todos.forEach((todo, index) => {
     listString += `
-        <li data-id="${index}">
-            <input type="checkbox">
+        <li data-id="${index}"${todo.complete ? ' class="todos-complete"' : ""}>
+            <input type="checkbox"${todo.complete ? " checked" : ""}>
             <span>${todo.label}</span>
             <button type="button"></button>
         </li>
@@ -46,6 +45,8 @@ const renderTodos = (todos) => {
 };
 
 //?HANDLERS
+
+//Add todo
 const addTodo = (e) => {
   e.preventDefault();
   const label = input.value.trim();
@@ -69,10 +70,45 @@ const addTodo = (e) => {
   input.value = "";
 };
 
+//Update todo
+const updateTodo = ({ target }) => {
+  //Obtenemos el data-id atributo
+  const id = parseInt(target.parentNode.dataset.id);
+  //asignar el valor booleano al complete
+  const complete = target.checked;
+
+  state = state.map((todo, index) => {
+    if (index === id) {
+      return {
+        ...todo,
+        complete,
+      };
+    }
+    return todo;
+  });
+
+  console.log(state);
+  renderTodos(state);
+};
+
+const deleteTodo = ({ target }) => {
+  if (target.nodeName.toLowerCase() !== "button") {
+    return;
+  }
+  const id = parseInt(target.parentNode.dataset.id);
+  const label = target.previousElementSibling.innerText;
+  if (window.confirm(`Estas a punto de borrar ${label}, ok???`)) {
+    state = state.filter((todo, index) => index !== id);
+    renderTodos(state);
+  }
+};
+
 //?ENTRY POINT - PUNTO DE ENTRADA A LA APP ---- INICIALIZADOR
 
 function init() {
   form.addEventListener("submit", addTodo);
+  list.addEventListener("change", updateTodo);
+  list.addEventListener("click", deleteTodo);
 }
 
 //RUN THE APPPPPPPP!!!!!!!!! BE NUCBER!!!!
