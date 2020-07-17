@@ -44,11 +44,11 @@ const renderTodos = (todos) => {
   list.innerHTML = listString;
 };
 
-//?HANDLERS
+//?HANDLERS LOGIC
 
 //Add todo
-const addTodo = (e) => {
-  e.preventDefault();
+const addTodo = (event) => {
+  event.preventDefault();
   const label = input.value.trim();
   const complete = false;
   if (label.length === 0) {
