@@ -6,7 +6,7 @@ app.innerHTML = `
             <h3 class="todos-title">TODO NUC</h3>
             <div>
                 <p>Tienes <span class="todos-count"></span> Items por hacer!! </p>
-                <button type="button" class="todos-clear" style="display:none;">Borra Completados</button>
+                <button type="button" class="todos-clear" style="display:none;" >Borra Completados</button>
             </div>
         </div>
         <form class="todos-form" name="todos">
@@ -19,15 +19,22 @@ app.innerHTML = `
     </div>
 `;
 
+const saveInLocalStorage = (todos) => {
+  localStorage.setItem("todos", JSON.stringify(todos));
+};
+
+JSON;
+
 //?Selectores
 
 const root = document.querySelector(".todos");
 const list = root.querySelector(".todos-list");
 const count = root.querySelector(".todos-count");
+const clear = root.querySelector(".todos-clear");
 const form = document.forms.todos;
 const input = form.elements.todo;
 
-let state = [];
+let state = JSON.parse(localStorage.getItem("todos")) || [];
 
 //?HANDLERS VIEW
 const renderTodos = (todos) => {
@@ -42,6 +49,10 @@ const renderTodos = (todos) => {
       `;
   });
   list.innerHTML = listString;
+  clear.style.display = todos.filter((todo) => todo.complete).length
+    ? "block"
+    : "none";
+  count.innerText = todos.filter((todo) => !todo.complete).length;
 };
 
 //?HANDLERS LOGIC
@@ -67,6 +78,7 @@ const addTodo = (event) => {
   console.log(state);
   //RENDERIZADO DE LOS TODOS
   renderTodos(state);
+  saveInLocalStorage(state);
   input.value = "";
 };
 
@@ -89,6 +101,7 @@ const updateTodo = ({ target }) => {
 
   console.log(state);
   renderTodos(state);
+  saveInLocalStorage(state);
 };
 
 const deleteTodo = ({ target }) => {
@@ -100,15 +113,30 @@ const deleteTodo = ({ target }) => {
   if (window.confirm(`Estas a punto de borrar ${label}, ok???`)) {
     state = state.filter((todo, index) => index !== id);
     renderTodos(state);
+    saveInLocalStorage(state);
+  }
+};
+
+const clearCompletes = () => {
+  const todoCompletes = state.filter((todo) => todo.complete).length;
+  if (todoCompletes === 0) {
+    return;
+  }
+  if (window.confirm(`Borramos los ${todoCompletes} todos???`)) {
+    state = state.filter((todo) => !todo.complete);
+    renderTodos(state);
+    saveInLocalStorage(state);
   }
 };
 
 //?ENTRY POINT - PUNTO DE ENTRADA A LA APP ---- INICIALIZADOR
 
 function init() {
+  renderTodos(state);
   form.addEventListener("submit", addTodo);
   list.addEventListener("change", updateTodo);
   list.addEventListener("click", deleteTodo);
+  clear.addEventListener("click", clearCompletes);
 }
 
 //RUN THE APPPPPPPP!!!!!!!!! BE NUCBER!!!!
