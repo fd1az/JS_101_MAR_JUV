@@ -103,7 +103,52 @@ const updateTodo = ({ target }) => {
   renderTodos(state);
   saveInLocalStorage(state);
 };
+//Edit todo
+const editTodo = ({ target }) => {
+  if (target.nodeName.toLowerCase() !== "span") {
+    return;
+  }
+  const id = parseInt(target.parentNode.dataset.id);
+  const currentLabel = state[id].label;
+  const input = document.createElement("input");
+  input.type = "text";
+  input.value = currentLabel;
 
+  const handlerEdit = (event) => {
+    const label = event.target.value;
+    event.stopPropagation();
+
+    if (label !== currentLabel) {
+      state = state.map((todo, index) => {
+        if (id === index) {
+          return {
+            ...todo,
+            label,
+          };
+        }
+        return todo;
+      });
+      renderTodos(state);
+      saveInLocalStorage(state);
+    }
+    event.target.display = "";
+    event.target.removeEventListener("change", handlerEdit);
+  };
+
+  const handlerBlur = ({ target }) => {
+    target.display = "";
+    input.remove();
+    target.removeEventListener("blur", handlerBlur);
+  };
+
+  input.addEventListener("change", handlerEdit);
+  input.addEventListener("blur", handlerBlur);
+
+  target.parentNode.append(input);
+  input.focus();
+};
+
+//Delete todo
 const deleteTodo = ({ target }) => {
   if (target.nodeName.toLowerCase() !== "button") {
     return;
@@ -135,6 +180,7 @@ function init() {
   renderTodos(state);
   form.addEventListener("submit", addTodo);
   list.addEventListener("change", updateTodo);
+  list.addEventListener("dblclick", editTodo);
   list.addEventListener("click", deleteTodo);
   clear.addEventListener("click", clearCompletes);
 }

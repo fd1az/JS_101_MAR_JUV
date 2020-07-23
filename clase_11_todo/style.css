@@ -187,7 +187,7 @@ body {
 }
 .todos-list li input[type="text"] {
   order: 2;
-  width: 100%;
+  width: 88%;
   padding: 0 0 0 50px;
   border: none;
   outline: 0;
