@@ -55,6 +55,7 @@ setTimer(3000, "Time out! Perdiste!!!!! LOOOOOOSSEEEEEERRRRRRR").then((data) =>
   }
 })();
 let h1 = document.createElement("h1");
+
 let body = document.querySelector("body");
 fetch("https://jsonplaceholder.typicode.com/todos/1")
   .then((data) => {
