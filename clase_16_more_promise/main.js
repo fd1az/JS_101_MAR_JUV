@@ -1,5 +1,5 @@
-let button = document.querySelector("#getPost");
-let posts = document.getElementById("posts");
+let button = document.querySelector('#getPost');
+let posts = document.getElementById('posts');
 function setTimer(duration, message) {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
@@ -7,13 +7,15 @@ function setTimer(duration, message) {
     }, duration);
   });
 }
-button.addEventListener("click", async () => {
+button.addEventListener('click', async () => {
   //
-  let response = await fetch("https://jsonplaceholder.typicode.com/posts");
+  let response = await fetch('https://jsonplaceholder.typicode.com/posts');
   let objResponse = await response.json();
   let lis = objResponse.map((obj) => `<li>${obj.title} --- ${obj.body}</li>`);
-  lis.forEach((element) => {
-    setTimer(2000, "nada").then((data) => (posts.innerHTML += element));
+  lis.forEach((item, indx) => {
+    setTimeout(function () {
+      posts.innerHTML += item;
+    }, indx * 500);
   });
 });
 
