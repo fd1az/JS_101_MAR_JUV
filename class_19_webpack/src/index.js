@@ -1,6 +1,6 @@
 import { hola } from './js/component';
 import './styles.css';
 
-const nombre = 'Facu';
+const nombre = 'Facuhgsdfgalsjkdnalksdjalksdjalskdjlsdfgsdfg';
 
 hola(nombre);
