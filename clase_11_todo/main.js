@@ -1,4 +1,4 @@
-const app = document.querySelector("#app");
+const app = document.querySelector('#app');
 
 app.innerHTML = `
     <div class="todos">
@@ -20,29 +20,27 @@ app.innerHTML = `
 `;
 
 const saveInLocalStorage = (todos) => {
-  localStorage.setItem("todos", JSON.stringify(todos));
+  localStorage.setItem('todos', JSON.stringify(todos));
 };
-
-JSON;
 
 //?Selectores
 
-const root = document.querySelector(".todos");
-const list = root.querySelector(".todos-list");
-const count = root.querySelector(".todos-count");
-const clear = root.querySelector(".todos-clear");
+const root = document.querySelector('.todos');
+const list = root.querySelector('.todos-list');
+const count = root.querySelector('.todos-count');
+const clear = root.querySelector('.todos-clear');
 const form = document.forms.todos;
 const input = form.elements.todo;
 
-let state = JSON.parse(localStorage.getItem("todos")) || [];
+let state = JSON.parse(localStorage.getItem('todos')) || [];
 
 //?HANDLERS VIEW
 const renderTodos = (todos) => {
-  let listString = "";
+  let listString = '';
   todos.forEach((todo, index) => {
     listString += `
-        <li data-id="${index}"${todo.complete ? ' class="todos-complete"' : ""}>
-            <input type="checkbox"${todo.complete ? " checked" : ""}>
+        <li data-id="${index}"${todo.complete ? ' class="todos-complete"' : ''}>
+            <input type="checkbox"${todo.complete ? ' checked' : ''}>
             <span>${todo.label}</span>
             <button type="button"></button>
         </li>
@@ -50,8 +48,8 @@ const renderTodos = (todos) => {
   });
   list.innerHTML = listString;
   clear.style.display = todos.filter((todo) => todo.complete).length
-    ? "block"
-    : "none";
+    ? 'block'
+    : 'none';
   count.innerText = todos.filter((todo) => !todo.complete).length;
 };
 
@@ -63,10 +61,10 @@ const addTodo = (event) => {
   const label = input.value.trim();
   const complete = false;
   if (label.length === 0) {
-    form.classList.add("error");
+    form.classList.add('error');
     return;
   }
-  form.classList.remove("error");
+  form.classList.remove('error');
   state = [
     ...state,
     {
@@ -79,7 +77,7 @@ const addTodo = (event) => {
   //RENDERIZADO DE LOS TODOS
   renderTodos(state);
   saveInLocalStorage(state);
-  input.value = "";
+  input.value = '';
 };
 
 //Update todo
@@ -105,13 +103,13 @@ const updateTodo = ({ target }) => {
 };
 //Edit todo
 const editTodo = ({ target }) => {
-  if (target.nodeName.toLowerCase() !== "span") {
+  if (target.nodeName.toLowerCase() !== 'span') {
     return;
   }
   const id = parseInt(target.parentNode.dataset.id);
   const currentLabel = state[id].label;
-  const input = document.createElement("input");
-  input.type = "text";
+  const input = document.createElement('input');
+  input.type = 'text';
   input.value = currentLabel;
 
   const handlerEdit = (event) => {
@@ -131,18 +129,18 @@ const editTodo = ({ target }) => {
       renderTodos(state);
       saveInLocalStorage(state);
     }
-    event.target.display = "";
-    event.target.removeEventListener("change", handlerEdit);
+    event.target.display = '';
+    event.target.removeEventListener('change', handlerEdit);
   };
 
   const handlerBlur = ({ target }) => {
-    target.display = "";
+    target.display = '';
     input.remove();
-    target.removeEventListener("blur", handlerBlur);
+    target.removeEventListener('blur', handlerBlur);
   };
 
-  input.addEventListener("change", handlerEdit);
-  input.addEventListener("blur", handlerBlur);
+  input.addEventListener('change', handlerEdit);
+  input.addEventListener('blur', handlerBlur);
 
   target.parentNode.append(input);
   input.focus();
@@ -150,7 +148,7 @@ const editTodo = ({ target }) => {
 
 //Delete todo
 const deleteTodo = ({ target }) => {
-  if (target.nodeName.toLowerCase() !== "button") {
+  if (target.nodeName.toLowerCase() !== 'button') {
     return;
   }
   const id = parseInt(target.parentNode.dataset.id);
@@ -178,11 +176,11 @@ const clearCompletes = () => {
 
 function init() {
   renderTodos(state);
-  form.addEventListener("submit", addTodo);
-  list.addEventListener("change", updateTodo);
-  list.addEventListener("dblclick", editTodo);
-  list.addEventListener("click", deleteTodo);
-  clear.addEventListener("click", clearCompletes);
+  form.addEventListener('submit', addTodo);
+  list.addEventListener('change', updateTodo);
+  list.addEventListener('dblclick', editTodo);
+  list.addEventListener('click', deleteTodo);
+  clear.addEventListener('click', clearCompletes);
 }
 
 //RUN THE APPPPPPPP!!!!!!!!! BE NUCBER!!!!

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/css/bootstrap.min.css"
+      integrity="sha384-r4NyP46KrjDleawBgD5tp8Y7UzmLA05oM1iAEQ17CSuDqnUK2+k9luXQOfXJCJ4I"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.css"
+      integrity="sha512-SUJFImtiT87gVCOXl3aGC00zfDl6ggYAw5+oheJvRJ8KBXZrr/TMISSdVJ5bBarbQDRC2pR5Kto3xTR0kpZInA=="
+      crossorigin="anonymous"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <link rel="stylesheet" href="styles.css" />
+    <title>Gastos</title>
+  </head>
+  <body>
+    <div
+      class="container bg-light d-flex flex-column justify-content-center align-items-center mt-5 p-5"
+    >
+      <h2>Gastos Piolas</h2>
+      <div class="col-12 d-inline-flex justify-content-between">
+        <div class="col-3">
+          <form>
+            <div class="mb-3">
+              <label for="descripcion" class="form-label">Descripcion</label>
+              <input
+                type="tex"
+                name="descipcion"
+                class="form-control"
+                id="descripcion"
+              />
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label"
+                >Monto</label
+              >
+              <input
+                name="monto"
+                type="number"
+                class="form-control"
+                id="exampleInputPassword1"
+              />
+            </div>
+
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label">Tipo</label>
+              <select
+                name="tipo"
+                class="form-select"
+                aria-label="Default select example"
+                id="type"
+              >
+                <option selected>Seleccionar tipo</option>
+                <option value="1">Ingreso</option>
+                <option value="2">Gasto</option>
+              </select>
+            </div>
+            <div class="mb-3">
+              <label for="exampleInputPassword1" class="form-label"
+                >Fecha</label
+              >
+              <input
+                name="fecha"
+                type="date"
+                class="form-control"
+                id="exampleInputPassword1"
+              />
+            </div>
+            <button type="submit" class="btn btn-dark">Guardar</button>
+          </form>
+        </div>
+        <div class="col-8 mr-2">
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+              <a
+                class="nav-link active text-secondary"
+                id="table-tab"
+                data-toggle="tab"
+                href="#table"
+                role="tab"
+                aria-controls="home"
+                aria-selected="true"
+                >Tabla</a
+              >
+            </li>
+            <li class="nav-item" role="presentation">
+              <a
+                class="nav-link text-secondary"
+                id="chart-tab"
+                data-toggle="tab"
+                href="#chart"
+                role="tab"
+                aria-controls="chart"
+                aria-selected="false"
+                >Chart</a
+              >
+            </li>
+          </ul>
+          <div class="tab-content" id="myTabContent">
+            <div
+              class="tab-pane fade show active"
+              id="table"
+              role="tabpanel"
+              aria-labelledby="table-tab"
+            ></div>
+            <div
+              class="tab-pane fade"
+              id="chart"
+              role="tabpanel"
+              aria-labelledby="chart-tab"
+            >
+              <div id="center">
+                <canvas id="canvas" width="600" height="400"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-alpha1/js/bootstrap.min.js"
+      integrity="sha384-oesi62hOLfzrys4LxRF63OJCXdXDipiYWBnvTl9Y9/TRlw5xlKIEHpNyvvDShgf/"
+      crossorigin="anonymous"
+    ></script>
+    <script src="main.js"></script>
+  </body>
+</html>

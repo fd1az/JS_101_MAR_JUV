@@ -6,6 +6,10 @@ const filter = document.querySelector('#filter');
 let limit = 5;
 let page = 1;
 
+// let url = new URL('http://www.omdbapi.com/');
+// const params = { apikey: '1e422aea', [type]: searchTerm };
+
+// url.search = new URLSearchParams(params).toString();
 //FETCH POST
 const getPost = async () => {
   const res = await fetch(
