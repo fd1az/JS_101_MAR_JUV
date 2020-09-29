@@ -1,17 +1,32 @@
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
-const form = document.querySelector("form");
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+const form = document.querySelector('form');
 const tipo = form.elements.tipo;
 const descripcion = form.elements.descripcion;
 const fecha = form.elements.fecha;
 const monto = form.elements.monto;
-const tabla = document.querySelector("#table");
+const tabla = document.querySelector('#table');
+
+const month = [
+  'Enero',
+  'Febrero',
+  'Marzo',
+  'Abril',
+  'Mayo',
+  'Junio',
+  'Julio',
+  'Agosto',
+  'Septiembre',
+  'Octubre',
+  'Noviembre',
+  'Diciembre',
+];
 
 const saveInLocalStorage = (todos) => {
-  localStorage.setItem("movimientos", JSON.stringify(todos));
+  localStorage.setItem('movimientos', JSON.stringify(todos));
 };
 
-let state = JSON.parse(localStorage.getItem("movimientos")) || [];
+let state = JSON.parse(localStorage.getItem('movimientos')) || [];
 
 const renderTable = (state) => {
   const tableHTML = `<table class="table">
@@ -30,16 +45,16 @@ const renderTable = (state) => {
             return ` 
                 <tr>
                     <th scope="row">${index + 1}</th>
-                    <td>${mov.tipo == 1 ? "Ingreso" : "Gasto"}</td>
+                    <td>${mov.tipo == 1 ? 'Ingreso' : 'Gasto'}</td>
                     <td>${mov.fecha}</td>
                     <td>${mov.descripcion}</td>
                     <td class="${
-                      mov.tipo == 1 ? "text-success" : "text-danger"
+                      mov.tipo == 1 ? 'text-success' : 'text-danger'
                     }">$ ${mov.monto}</td>
                 </tr>
             `;
           })
-          .join("")}
+          .join('')}
           
         </tbody>
     </table>`;
@@ -70,37 +85,20 @@ function sort(array, first) {
 }
 
 const renderChart = (state) => {
-  const month = [
-    "Enero",
-    "Febrero",
-    "Marzo",
-    "Abril",
-    "Mayo",
-    "Junio",
-    "Julio",
-    "Agosto",
-    "Septiembre",
-    "Octubre",
-    "Noviembre",
-    "Diciembre",
-  ];
-
   //Obtenemos los valores de los Meses
   const numeroMes = [
     ...new Set(
       state.map((mov) => {
-        return mov.fecha.split("-")[1];
+        return mov.fecha.split('-')[1];
       })
     ),
   ];
-  console.log(numeroMes);
 
   //Filtramos los ingresos mes-acumulado
   const ingresos = state
     .filter((mov) => mov.tipo == 1)
     .reduce((acc, current) => {
-      let mes = current.fecha.split("-")[1];
-
+      let mes = current.fecha.split('-')[1];
       return {
         ...acc,
         [mes]: acc[mes]
@@ -114,7 +112,7 @@ const renderChart = (state) => {
   const gastos = state
     .filter((mov) => mov.tipo == 2)
     .reduce((acc, current) => {
-      let mes = current.fecha.split("-")[1];
+      let mes = current.fecha.split('-')[1];
 
       return {
         ...acc,
@@ -125,7 +123,7 @@ const renderChart = (state) => {
     }, {});
 
   const meses = numeroMes.sort().map((num) => month[num - 1]);
-  console.log(meses);
+
   const valueBymesI = Object.keys(ingresos)
     .sort()
     .map((key) => ingresos[key]);
@@ -136,25 +134,25 @@ const renderChart = (state) => {
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
   const myChart = new Chart(ctx, {
-    type: "line",
+    type: 'line',
     data: {
       labels: [...meses],
       datasets: [
         {
-          label: "Ingresos",
+          label: 'Ingresos',
           fill: false,
           data: [...valueBymesI],
-          color: "#1d2d50",
-          borderColor: "#4CAF50",
-          backgroundColor: "#4CAF50",
+          color: '#1d2d50',
+          borderColor: '#4CAF50',
+          backgroundColor: '#4CAF50',
         },
         {
-          label: "Gastos",
+          label: 'Gastos',
           fill: false,
           data: [...valueBymesG],
-          color: "#1d2d50",
-          borderColor: "#ff414d",
-          backgroundColor: "#ff414d",
+          color: '#1d2d50',
+          borderColor: '#ff414d',
+          backgroundColor: '#ff414d',
         },
       ],
       options: {
@@ -186,7 +184,7 @@ function init() {
   renderTable(state);
   renderChart(state);
 
-  form.addEventListener("submit", handlerSubmit);
+  form.addEventListener('submit', handlerSubmit);
 }
 
 init();
