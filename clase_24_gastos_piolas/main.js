@@ -122,7 +122,7 @@ const renderChart = (state) => {
       };
     }, {});
 
-  //PARA VOS HERY, ASI TENES PAZ...
+  //PARA VOS HERI, TEN PAZ.......
   numeroMes.forEach((num) => {
     num in gastos ? null : (gastos[num] = 0);
     num in ingresos ? null : (ingresos[num] = 0);
