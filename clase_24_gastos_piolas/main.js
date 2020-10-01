@@ -122,6 +122,12 @@ const renderChart = (state) => {
       };
     }, {});
 
+  //PARA VOS HERY, ASI TENES PAZ...
+  numeroMes.forEach((num) => {
+    num in gastos ? null : (gastos[num] = 0);
+    num in ingresos ? null : (ingresos[num] = 0);
+  });
+
   const meses = numeroMes.sort().map((num) => month[num - 1]);
 
   const valueBymesI = Object.keys(ingresos)
